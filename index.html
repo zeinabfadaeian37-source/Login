@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap" rel="stylesheet" />
+  <title>Signup Form</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  <div class="form-box">
+    <div class="icon-circle">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/speech-bubble-with-dots.png" alt="Chat Icon" />
+    </div>
+    <h2>دسترسی کامل با یک ثبت‌نام ساده</h2>
+    <form id="form" class="form">
+      <input type="email"  name="email" id="email" placeholder="ایمیل" required>
+      <input type="password" name="password" id="password" placeholder="رمز" required>
+      <button type="submit">ثبت</button>
+    </form>
+  </div>
+</div>
+
+  <script>
+  const formEI = document.querySelector('.form');
+  formEI.addEventListener('submit', event => {
+  event.preventDefault();
+
+  const formData = new FormData(formEI);
+  const data = new URLSearchParams(formData);
+
+  fetch('https://reqres.in/api/users', {
+    method: 'POST',
+    headers: {
+      'x-api-key': 'reqres-free-v1',
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: data
+  })
+  .then(res => res.json())
+  .then(data => {
+    console.log(data);
+    alert("ثبت نام با موفقیت انجام شد!");
+    formEI.reset();
+  })
+  .catch(error => console.log(error));
+});
+
+  </script>
+</body>
+</html>
